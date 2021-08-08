@@ -2,8 +2,14 @@ from django.shortcuts import render
 
 # Create your views here.
 
-from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the cards index.")
+    """Function to display the home page"""
+    return render(request, 'cards/index.html')
+
+
+def create(request):
+    """Function to display the flashcard creation page"""
+    return render(request, 'cards/create.html')
+
