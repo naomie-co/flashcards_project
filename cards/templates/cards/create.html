@@ -6,4 +6,17 @@
 
 	<h2>Créer une flashcard</h2>
 
+	<div>
+	    <h1>Détail</h1>
+       	{% if error %}
+            <p>Champ non valide.</p>    
+
+        {% else %}
+            <form method="post" action=".">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" name="create" value="Enregistrer la carte" />
+            </form>
+        {% endif %}
+</div>
 {% endblock %}
