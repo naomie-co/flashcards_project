@@ -4,15 +4,14 @@
 
 {% block content %}
 
-	<h2>Créer une flashcard</h2>
+	<h1>Créer une flashcard</h1>
 
 	<div>
-	    <h1>Détail</h1>
        	{% if error %}
             <p>Champ non valide.</p>    
 
         {% else %}
-            <form method="post" action=".">
+            <form method="post" action="./create">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <input type="submit" name="create" value="Enregistrer la carte" />
