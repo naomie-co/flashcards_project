@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic.edit import FormView
-from .models import CardForm, Card
+from .models import CardForm, PackageForm, Card, Package
 
 
 # Create your views here.
@@ -15,6 +15,32 @@ def index(request):
     """Function to display the home page"""
     return render(request, 'cards/index.html')
 
+
+def package(request):
+    """Function to create or select a package before creating cards"""
+    
+    if request.method == "POST":
+        form = PackageForm(request.POST)
+        if form.is_valid():
+            name_check = form.cleaned_data["name"]
+            new_package = Package.objects.create(
+                name=name_check)
+        form = CardForm()
+
+        context = {
+        "package_name" : name_check,
+        'form': form,
+        }
+        
+        return render(request, 'cards/create.html', context)
+
+    else:
+        form = PackageForm()
+        context = {
+        'form': form,
+        }
+
+        return render(request, 'cards/package.html', context)
 
 def create(request):
     """Function to display the flashcard creation page"""

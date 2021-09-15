@@ -5,7 +5,7 @@ from django.forms import ModelForm
 
 class Package(models.Model):
     name = models.CharField(max_length=200)
-    url = models.URLField(null=True)#add null to try save the first project
+    url = models.URLField(null=True)#add null to try to save the first project
     
     def __str__(self):
         return self.name
@@ -47,3 +47,13 @@ class CardForm(ModelForm):
                 answer=answer_check,
                 package=package_check, 
                 tag=tag_check)
+
+class PackageForm(ModelForm):
+    class Meta:
+        model = Package
+        fields = ['name']
+
+        def save_data(self):
+            name_check = form.cleaned_data["name"]
+            new_package = Package.objects.create(
+                name=name_check)
