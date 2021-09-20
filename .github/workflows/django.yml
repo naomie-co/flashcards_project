@@ -22,7 +22,7 @@ jobs:
       env:
         env: ${{secrets.ENV}}
       with:
-        s_key: ${{ secrets.S_KEY}}
+        secret_key: ${{ secrets.S_KEY}}
         python-version: ${{ matrix.python-version }}
     - name: Install Dependencies
       run: |
