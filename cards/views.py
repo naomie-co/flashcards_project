@@ -25,10 +25,16 @@ def package(request):
             name_check = form.cleaned_data["name"]
             new_package = Package.objects.create(
                 name=name_check)
+
+        #data = {
+        #"package_name" : name_check,
+        #}
+        #form = CardForm(data)
         form = CardForm()
+        
+        #form.fields['package'] = name_check
 
         context = {
-        "package_name" : name_check,
         'form': form,
         }
         
@@ -44,20 +50,6 @@ def package(request):
 
 def create(request):
     """Function to display the flashcard creation page"""
-
-
-
-    # class CardFormView(FormView):
-    #     create = 'create.html'
-    #     form_class = CardForm
-    #     success_url = '/create/'
-
-    #     def form_valid(self, form):
-    #         # This method is called when valid form data has been POSTed.
-    #         # It should return an HttpResponse.
-    #         form.save_data()
-    #         return super().form_valid(create)
-
 
     #error = False
 
