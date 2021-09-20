@@ -18,6 +18,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
+      env:
+        ENV: ${{secrets.ENV}}
+      with:
+        S_KEY: ${{ secrets.S_KEY}}
+
+
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
