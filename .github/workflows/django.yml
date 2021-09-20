@@ -20,9 +20,9 @@ jobs:
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       env:
-        ENV: ${{secrets.ENV}}
+        env: ${{secrets.ENV}}
       with:
-        S_KEY: ${{ secrets.S_KEY}}
+        s_key: ${{ secrets.S_KEY}}
         python-version: ${{ matrix.python-version }}
     - name: Install Dependencies
       run: |
