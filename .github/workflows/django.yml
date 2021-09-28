@@ -27,6 +27,8 @@ jobs:
       # env: |
       #   secret_key: '${{ secrets.S_KEY}}'        
     - name: Run Tests
+      env: 
+        ENV: "TEST"
+        S_KEY: ${{ secrets.S_KEY}}
       run: |
-        secret_key: '${{ secrets.S_KEY}}'   
         python manage.py test cards
