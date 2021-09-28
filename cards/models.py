@@ -34,26 +34,25 @@ class Learning_history(models.Model):
 class CardForm(ModelForm):
     class Meta:
         model = Card
-        fields = ['question', 'answer', 'package', 'tag']
+        #Package field is useless because it was choosen in the previous step
+        fields = ['question', 'answer', 'tag']
 
-        def save_data(self):
-            question_check = form.cleaned_data["question"]
-            answer_check = form.cleaned_data["answer"]
-            package_check = form.cleaned_data["package"]
-            tag_check = form.cleaned_data["tag"]
-            print(question_check)
-            new_card = Card.objects.create(
-                question=question_check,
-                answer=answer_check,
-                package=package_check, 
-                tag=tag_check)
+        # def save_data(self):
+        #     question_check = form.cleaned_data["question"]
+        #     answer_check = form.cleaned_data["answer"]
+        #     tag_check = form.cleaned_data["tag"]
+        #     print(question_check)
+        #     new_card = Card.objects.create(
+        #         question=question_check,
+        #         answer=answer_check,
+        #         tag=tag_check)
 
 class PackageForm(ModelForm):
     class Meta:
         model = Package
         fields = ['name']
 
-        def save_data(self):
-            name_check = form.cleaned_data["name"]
-            new_package = Package.objects.create(
-                name=name_check)
+        # def save_data(self):
+        #     name_check = form.cleaned_data["name"]
+        #     new_package = Package.objects.create(
+        #         name=name_check)

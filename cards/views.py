@@ -6,11 +6,6 @@ from .models import CardForm, PackageForm, Card, Package
 # Create your views here.
 
 
-
-
-
-
-
 def index(request):
     """Function to display the home page"""
     return render(request, 'cards/index.html')
@@ -36,6 +31,7 @@ def package(request):
 
         context = {
         'form': form,
+        'package_name': name_check,
         }
         
         return render(request, 'cards/create.html', context)
@@ -48,8 +44,8 @@ def package(request):
 
         return render(request, 'cards/package.html', context)
 
-def create(request):
-    """Function to display the flashcard creation page"""
+def create(request, package):
+    """Function to create a flashcard"""
 
     #error = False
 
@@ -59,18 +55,19 @@ def create(request):
         if form.is_valid():
             question_check = form.cleaned_data["question"]
             answer_check = form.cleaned_data["answer"]
-            package_check = form.cleaned_data["package"]
+            package_name = package
             tag_check = form.cleaned_data["tag"]
             print(question_check)
             new_card = Card.objects.create(
                 question=question_check,
                 answer=answer_check,
-                package=package_check, 
+                package=package_name, 
                 tag=tag_check)
         form = CardForm()
 
         context = {
         'form': form,
+        'package_name': package,
         }
 
 
