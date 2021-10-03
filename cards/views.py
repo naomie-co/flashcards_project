@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect 
 from django.views.generic.edit import FormView
 from .models import CardForm, PackageForm, Card, Package
 
@@ -17,24 +17,25 @@ def package(request):
     if request.method == "POST":
         form = PackageForm(request.POST)
         if form.is_valid():
-            name_check = form.cleaned_data["name"]
+            package_name = form.cleaned_data["name"]
+            print(package_name)
             new_package = Package.objects.create(
-                name=name_check)
+                name=package_name)
 
         #data = {
         #"package_name" : name_check,
         #}
         #form = CardForm(data)
-        form = CardForm()
+        # form = CardForm()
         
-        #form.fields['package'] = name_check
+        # #form.fields['package'] = name_check
 
-        context = {
-        'form': form,
-        'package_name': name_check,
-        }
+        # context = {
+        # 'form': form,
+        # 'package_name': name_check,
+        # }
         
-        return render(request, 'cards/create.html', context)
+        return redirect('create', package=package_name)
 
     else:
         form = PackageForm()
@@ -50,7 +51,7 @@ def create(request, package):
     #error = False
 
     if request.method == "POST":
-        print("Welcome to the POST!")
+        print("Welcome to the POST!", "nom du paquet:", package)
         form = CardForm(request.POST)
         if form.is_valid():
             question_check = form.cleaned_data["question"]
