@@ -35,7 +35,7 @@ def package(request):
         # 'package_name': name_check,
         # }
         
-        return redirect('create', package=package_name)
+        return redirect('create', package=package_name, permanent=True)
 
     else:
         form = PackageForm()
@@ -49,14 +49,14 @@ def create(request, package):
     """Function to create a flashcard"""
 
     #error = False
-
+    package_name = package
     if request.method == "POST":
         print("Welcome to the POST!", "nom du paquet:", package)
         form = CardForm(request.POST)
         if form.is_valid():
             question_check = form.cleaned_data["question"]
             answer_check = form.cleaned_data["answer"]
-            package_name = package
+
             tag_check = form.cleaned_data["tag"]
             print(question_check)
             new_card = Card.objects.create(
@@ -66,20 +66,23 @@ def create(request, package):
                 tag=tag_check)
         form = CardForm()
 
-        context = {
-        'form': form,
-        'package_name': package,
-        }
 
 
     else:
         form = CardForm()
 
-        context = {
-        'form': form,
-        }
+        # context = {
+        # 'form': form,
+        # }
 
-    return render(request, 'cards/create.html', context)
+    context = {
+        'form': form,
+        'package': package_name,
+        }
+ 
+    return render(request, 'cards/package.html', context)
+
+#    return render(request, 'cards/create.html', context)
 """
  error = False
 
