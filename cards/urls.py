@@ -1,10 +1,9 @@
-#from django.urls import path
-from django.conf.urls import url, include
-
+from django.urls import path
+#from django.conf.urls import 
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
-    url(r'^create/$', views.create, name='create'),
-    url(r'^package/$', views.package, name='package'),
+    path(' ', views.index, name='index'),
+    path('create/<slug:package>', views.create, name='create'),
+    path('package/<slug:package>', views.package, name='package'),
     ]
