@@ -18,24 +18,11 @@ def package(request):
         form = PackageForm(request.POST)
         if form.is_valid():
             package_name = form.cleaned_data["name"]
-            print(package_name)
+            print("Le nom du paquet est: ", package_name)
             new_package = Package.objects.create(
                 name=package_name)
 
-        #data = {
-        #"package_name" : name_check,
-        #}
-        #form = CardForm(data)
-        # form = CardForm()
-        
-        # #form.fields['package'] = name_check
-
-        # context = {
-        # 'form': form,
-        # 'package_name': name_check,
-        # }
-        
-        return redirect('create', package=package_name, permanent=True)
+        return redirect('create', package=package_name)
 
     else:
         form = PackageForm()
@@ -45,7 +32,7 @@ def package(request):
 
         return render(request, 'cards/package.html', context)
 
-def create(request, package):
+def create(request, package=None):
     """Function to create a flashcard"""
 
     #error = False
@@ -65,24 +52,26 @@ def create(request, package):
                 package=package_name, 
                 tag=tag_check)
         form = CardForm()
-
+        return redirect('create', package=package_name)
 
 
     else:
         form = CardForm()
+        print("Dans Create/get")
+        print("le nom du paquet est :", package_name)
 
         # context = {
         # 'form': form,
         # }
 
-    context = {
-        'form': form,
-        'package': package_name,
-        }
- 
-    return render(request, 'cards/package.html', context)
+        context = {
+            'form': form,
+            'package': package_name,
+            }
+        return render(request, 'cards/create.html', context)
+        #return redirect('create', package=package_name)
 
-#    return render(request, 'cards/create.html', context)
+
 """
  error = False
 
