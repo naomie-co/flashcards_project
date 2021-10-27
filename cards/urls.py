@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('create/<slug:package>', views.create, kwargs={'package': None}, name='create'),
-    path('package/', views.package, name='package'),
+    path('create/', views.create, name='create'),
+    path('learn/', views.learn, name='learn'),
+#    path('package/', views.package, name='package'),
     ]

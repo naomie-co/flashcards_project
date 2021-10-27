@@ -5,7 +5,7 @@ from django.forms import ModelForm
 
 class Package(models.Model):
     name = models.CharField(max_length=200)
-    url = models.URLField(null=True)#add null to try to save the first project
+    #url = models.URLField(null=True)#add null to try to save the V1 project
     
     def __str__(self):
         return self.name
@@ -35,7 +35,7 @@ class CardForm(ModelForm):
     class Meta:
         model = Card
         #Package field is useless because it was choosen in the previous step
-        fields = ['question', 'answer', 'tag']
+        fields = ['package', 'question', 'answer', 'tag']
 
         # def save_data(self):
         #     question_check = form.cleaned_data["question"]
