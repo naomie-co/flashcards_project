@@ -8,7 +8,12 @@ from .models import CardForm, PackageForm, Card, Package
 
 def index(request):
     """Function to display the home page"""
-    return render(request, 'cards/index.html')
+    packages = Package.objects.order_by('name')
+
+    context = {
+        'packages': packages,
+        }
+    return render(request, 'cards/index.html', context)
 
 """
 def package(request):
