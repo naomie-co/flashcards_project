@@ -8,13 +8,11 @@
 
 <h2><a href="{% url 'create' %}">Créer</a></h2>
 
-<h2><a href="{% url 'learn' %}">Apprendre</a></h2>
-
 
   <div>
 		{% for package in packages %}
 		    <div>
-		        <h3><a href="{% url 'learn' %}">{{ package.name }}</a></h3>
+		        <h3><a href="{% url 'learn' package=package.name %}">{{ package.name }}</a></h3>
 		   
 		    </div>
 		  {% if forloop.counter|divisibleby:3 %}<div class="clearfix"></div>{% endif %}

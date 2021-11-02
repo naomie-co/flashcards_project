@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect 
+from django.shortcuts import render, redirect, get_object_or_404 
 from django.views.generic.edit import FormView
+from django.core.paginator import Paginator
 from .models import CardForm, PackageForm, Card, Package
 
 
@@ -74,10 +75,13 @@ def create(request):
 
 
 
-def learn(request):
+def learn(request, package):
     """Display and learn a flashcard"""
 
-    #display the packages available (get)
-    #when the user choose a package, send back the cards (print step by step)
+    get_package = get_object_or_404(Package, name=package)
+    paginator = Paginator(get_package, 1)
 
-    return render(request, 'cards/learn.html', context)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    return render(request, 'cards/learn.html', {'page_obj': page_obj})
