@@ -11,6 +11,8 @@ class Package(models.Model):
         return self.name
 
 
+
+
 class Card(models.Model):
     question = models.CharField(max_length=2000)
     answer = models.CharField(max_length=2000)

@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404 
-from django.views.generic.edit import FormView
-from django.core.paginator import Paginator
+from django.views.generic import ListView
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import CardForm, PackageForm, Card, Package
+from django.http import HttpResponse #testCookies
 
 
 # Create your views here.
@@ -77,11 +78,53 @@ def create(request):
 
 def learn(request, package):
     """Display and learn a flashcard"""
-
-    get_package = get_object_or_404(Package, name=package)
-    paginator = Paginator(get_package, 1)
-
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
     
-    return render(request, 'cards/learn.html', {'page_obj': page_obj})
+    if request.method == "GET":
+        id_package = Package.objects.get(name=package)
+        get_cards = Card.objects.filter(package=id_package.id)
+        paginator = Paginator(get_cards, 1)
+
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        try:
+            cards = paginator.page(page_number)
+        except PageNotAnInteger:
+            cards = paginator.page(1)
+        except EmptyPage:
+            cards = paginator.page(paginator.num_pages)
+
+        return render(request, 'cards/learn.html', {'page_obj': page_obj, 'cards': cards})
+
+    else: 
+        if request.method == "POST":
+            form = CardForm(request.POST)
+            if form.is_valid():
+                answer_data = form.cleaned_data["card"]
+                answer_status = form.cleaned_data["status"]
+        
+
+
+
+def learning_stat(request):
+
+    # if request.method == "POST":
+    #     form = CardForm(request.POST)
+    #     if form.is_valid():
+    #         answer_data = form.cleaned_data["card"]
+    #         answer_status = form.cleaned_data["status"]
+    # return render(request, 'cards/create.html')
+
+    if request.method == 'POST':
+        if request.session.test_cookie_worked():
+            request.session.delete_test_cookie()
+            return HttpResponse("You're logged in.")
+        else:
+            return HttpResponse("Please enable cookies and try again.")
+    request.session.set_test_cookie()
+    return render(request, 'foo/login_form.html')
+
+
+def login(request):
+    """Function to display the login page"""
+    
+    return render(request, 'cards/login.html', context)

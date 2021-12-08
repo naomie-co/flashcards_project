@@ -3,8 +3,45 @@
 {% load static %}
 
 {% block content %}
+    <div id="question">
+	   <h1>Testez-vous</h1>
 
-	<h1>Testez-vous</h1>
+        {% for card in cards %}
+        <p>{{card.question}}</p>
+
+        <button onclick="DisplayAnswer()">Afficher la réponse</button>
+
+
+    </div>
+
+    <div id="answer">
+        <p>{{card.answer}}</p>
+
+        <form method="post" action="{% url 'learning_stat' %}">
+            {% csrf_token %}
+            <i class="far fa-square"></i> 
+            <input type="hidden" name="card" value="{{ card.id }}" />             
+            <input type="submit" name="status" value="OK"/>  
+
+        </form>
+        <form method="post" action="{% url 'learning_stat' %}">
+            {% csrf_token %}
+            <i class="far fa-square"></i> 
+            <input type="hidden" name="card" value="{{ card.id }}" />             
+            <input type="submit" name="status" value="MEH"/>     
+        </form>
+
+        </form>
+        <form method="post" action="{% url 'learning_stat' %}">
+            {% csrf_token %}
+            <i class="far fa-square"></i> 
+            <input type="hidden" name="card" value="{{ card.id }}" />             
+            <input type="submit" name="status" value="NOK"/>     
+        </form>
+
+    </div>
+
+    {% endfor%}
 
 
     <div class="pagination">
@@ -24,5 +61,11 @@
             {% endif %}
         </span>
     </div>
+
+    <script>
+        function DisplayAnswer(){
+            document.getElementById("answer").style.opacity = "1";
+        }
+    </script>
 
 {% endblock %}
