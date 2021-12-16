@@ -3,7 +3,7 @@ from django.views.generic import ListView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import CardForm, PackageForm, Card, Package
 from django.http import HttpResponse #testCookies
-
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 
@@ -105,26 +105,33 @@ def learn(request, package):
 
 
 
-def learning_stat(request):
+# def learning_stat(request):
 
-    # if request.method == "POST":
-    #     form = CardForm(request.POST)
-    #     if form.is_valid():
-    #         answer_data = form.cleaned_data["card"]
-    #         answer_status = form.cleaned_data["status"]
-    # return render(request, 'cards/create.html')
+#     # if request.method == "POST":
+#     #     form = CardForm(request.POST)
+#     #     if form.is_valid():
+#     #         answer_data = form.cleaned_data["card"]
+#     #         answer_status = form.cleaned_data["status"]
+#     # return render(request, 'cards/create.html')
 
-    if request.method == 'POST':
-        if request.session.test_cookie_worked():
-            request.session.delete_test_cookie()
-            return HttpResponse("You're logged in.")
-        else:
-            return HttpResponse("Please enable cookies and try again.")
-    request.session.set_test_cookie()
-    return render(request, 'foo/login_form.html')
+#     if request.method == 'POST':
+#         if request.session.test_cookie_worked():
+#             request.session.delete_test_cookie()
+#             return HttpResponse("You're logged in.")
+#         else:
+#             return HttpResponse("Please enable cookies and try again.")
+#     request.session.set_test_cookie()
+#     return render(request, 'foo/login_form.html')
 
 
-def login(request):
-    """Function to display the login page"""
+
+
+# def login(request):
+#     """Function to display the login page"""
     
-    return render(request, 'cards/login.html', context)
+#     return render(request, 'cards/login.html', context)
+
+
+# def logout_view(request):
+#     logout(request)
+#     return render(request, 'cards/index.html') 
