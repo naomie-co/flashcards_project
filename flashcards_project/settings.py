@@ -74,7 +74,7 @@ ROOT_URLCONF = 'flashcards_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [str(os.path.join(BASE_DIR, 'templates'))],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -143,3 +143,7 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 
 
 SESSION_COOKIE_HTTPONLY = True
+
+#Connexion configuration
+LOGIN_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'index' 

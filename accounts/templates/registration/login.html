@@ -1,0 +1,17 @@
+
+{% extends 'cards/base.html' %}
+
+{% load static %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block content %}
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Log In</button>
+</form>
+
+  <a href="{% url 'accounts:signup' %}">Pas encore inscrit(e)?</a>
+{% endblock %}
