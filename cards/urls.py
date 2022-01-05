@@ -8,5 +8,5 @@ urlpatterns = [
     #path('', views.index, name='index'),
     path('create/', views.create, name='create'),
     path('learn/<str:package>', views.learn, name='learn'),
-    #path('learning_stat/', views.learning_stat, name='learning_stat'),
+    path('learning_stat/', views.learning_stat, name='learning_stat'),
     ]

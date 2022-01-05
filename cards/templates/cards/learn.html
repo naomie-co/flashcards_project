@@ -17,7 +17,7 @@
     <div id="answer">
         <p>{{card.answer}}</p>
 
-      <!---  <form method="post" action="{% url 'learning_stat' %}">
+       <form method="post" action="{% url 'cards:learning_stat' %}">
             {% csrf_token %}
             <i class="far fa-square"></i> 
             <input type="hidden" name="card" value="{{ card.id }}" />             
@@ -26,7 +26,7 @@
         </form>
 
 
-        <form method="post" action="{% url 'learning_stat' %}">
+        <form method="post" action="{% url 'cards:learning_stat' %}">
             {% csrf_token %}
             <i class="far fa-square"></i> 
             <input type="hidden" name="card" value="{{ card.id }}" />             
@@ -34,13 +34,13 @@
         </form>
 
         </form>
-        <form method="post" action="{% url 'learning_stat' %}">
+        <form method="post" action="{% url 'cards:learning_stat' %}">
             {% csrf_token %}
             <i class="far fa-square"></i> 
             <input type="hidden" name="card" value="{{ card.id }}" />             
             <input type="submit" name="status" value="NOK"/>     
         </form>
---->
+
     </div>
 
     {% endfor%}

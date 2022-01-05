@@ -4,7 +4,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import CardForm, PackageForm, Card, Package
 from django.http import HttpResponse #testCookies
 from django.contrib.auth import authenticate, login, logout
-
+import datetime
 # Create your views here.
 
 
@@ -63,7 +63,7 @@ def create(request):
 
     else:
         form = CardForm()
-        print("Dans Create/get")
+        #print("Dans Create/get")
 
     context = {
         'form': form,
@@ -82,8 +82,9 @@ def learn(request, package):
     if request.method == "GET":
         id_package = Package.objects.get(name=package)
         get_cards = Card.objects.filter(package=id_package.id)
-        paginator = Paginator(get_cards, 1)
 
+        #Display cards with pagination
+        paginator = Paginator(get_cards, 1)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
         try:
@@ -95,33 +96,35 @@ def learn(request, package):
 
         return render(request, 'cards/learn.html', {'page_obj': page_obj, 'cards': cards})
 
-    else: 
-        if request.method == "POST":
-            form = CardForm(request.POST)
-            if form.is_valid():
-                answer_data = form.cleaned_data["card"]
-                answer_status = form.cleaned_data["status"]
+    # else: 
+    #     if request.method == "POST":
+    #         form = CardForm(request.POST)
+    #         if form.is_valid():
+    #             answer_data = form.cleaned_data["card"]
+    #             answer_status = form.cleaned_data["status"]
         
 
 
 
-# def learning_stat(request):
+def learning_stat(request):
 
-#     # if request.method == "POST":
-#     #     form = CardForm(request.POST)
-#     #     if form.is_valid():
-#     #         answer_data = form.cleaned_data["card"]
-#     #         answer_status = form.cleaned_data["status"]
-#     # return render(request, 'cards/create.html')
+    if request.method == "POST":
+        # form = CardForm(request.POST)
+        # if form.is_valid():
+        answer_data = card
+        answer_status = status
+        now = datetime.datetime.now()
+        print(answer_date, answer_status, now)
+    return HttpResponse("réponse enregistrée!")
 
-#     if request.method == 'POST':
-#         if request.session.test_cookie_worked():
-#             request.session.delete_test_cookie()
-#             return HttpResponse("You're logged in.")
-#         else:
-#             return HttpResponse("Please enable cookies and try again.")
-#     request.session.set_test_cookie()
-#     return render(request, 'foo/login_form.html')
+    # if request.method == 'POST':
+    #     if request.session.test_cookie_worked():
+    #         request.session.delete_test_cookie()
+    #         return HttpResponse("You're logged in.")
+    #     else:
+    #         return HttpResponse("Please enable cookies and try again.")
+    # request.session.set_test_cookie()
+    # return render(request, 'foo/login_form.html')
 
 
 

@@ -24,10 +24,9 @@ class Card(models.Model):
         return self.question
 
 
-class Learning_history(models.Model):
+class Learning_statistics(models.Model):
     card = models.ForeignKey(Card, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    number_of_study = models.IntegerField(default=0)
     difficulty = models.CharField(max_length=200)
     date_time = models.DateTimeField(null=True, auto_now_add=True)
     hour = models.TimeField(null=True, blank=True)
@@ -42,22 +41,8 @@ class CardForm(ModelForm):
         #Package field is useless because it was choosen in the previous step
         fields = ['package', 'question', 'answer', 'tag']
 
-        # def save_data(self):
-        #     question_check = form.cleaned_data["question"]
-        #     answer_check = form.cleaned_data["answer"]
-        #     tag_check = form.cleaned_data["tag"]
-        #     print(question_check)
-        #     new_card = Card.objects.create(
-        #         question=question_check,
-        #         answer=answer_check,
-        #         tag=tag_check)
-
+    
 class PackageForm(ModelForm):
     class Meta:
         model = Package
         fields = ['name']
-
-        # def save_data(self):
-        #     name_check = form.cleaned_data["name"]
-        #     new_package = Package.objects.create(
-        #         name=name_check)
