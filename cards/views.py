@@ -111,9 +111,11 @@ def learning_stat(request):
     if request.method == "POST":
         # form = CardForm(request.POST)
         # if form.is_valid():
-        answer_data = card
-        answer_status = status
         now = datetime.datetime.now()
+        print(now)
+        form = Form(request.POST)
+        answer_data = form.cleaned_data["card"]
+        answer_status = form.cleaned_data["status"]
         print(answer_date, answer_status, now)
     return HttpResponse("réponse enregistrée!")
 

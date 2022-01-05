@@ -29,7 +29,6 @@ class Learning_statistics(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     difficulty = models.CharField(max_length=200)
     date_time = models.DateTimeField(null=True, auto_now_add=True)
-    hour = models.TimeField(null=True, blank=True)
 
     def __str__(self):
         return self.difficulty
