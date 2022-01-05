@@ -1,5 +1,6 @@
 from django.db import models
 from django.forms import ModelForm
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -24,10 +25,12 @@ class Card(models.Model):
 
 
 class Learning_history(models.Model):
-    card = models.ForeignKey(Card, on_delete=models.CASCADE) 
+    card = models.ForeignKey(Card, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     number_of_study = models.IntegerField(default=0)
     difficulty = models.CharField(max_length=200)
     date_time = models.DateTimeField(null=True, auto_now_add=True)
+    hour = models.TimeField(null=True, blank=True)
 
     def __str__(self):
         return self.difficulty
