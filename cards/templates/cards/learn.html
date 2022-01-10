@@ -13,13 +13,15 @@
 
 
     </div>
-
+    
+    {% if user.is_authenticated %}
     <div id="answer">
         <p>{{card.answer}}</p>
 
        <form method="post" action="{% url 'cards:learning_stat' %}">
             {% csrf_token %}
             <i class="far fa-square"></i> 
+            <input type="hidden" name="user" value="{{ user.id }}"/>
             <input type="hidden" name="card" value="{{ card.id }}" />             
             <input type="submit" name="status" value="OK"/>  
 
@@ -29,7 +31,8 @@
         <form method="post" action="{% url 'cards:learning_stat' %}">
             {% csrf_token %}
             <i class="far fa-square"></i> 
-            <input type="hidden" name="card" value="{{ card.id }}" />             
+            <input type="hidden" name="user" value="{{ user.id }}"/>
+            <input type="hidden" name="card" value="{{ card.id }}"/>             
             <input type="submit" name="status" value="MEH"/>     
         </form>
 
@@ -37,11 +40,13 @@
         <form method="post" action="{% url 'cards:learning_stat' %}">
             {% csrf_token %}
             <i class="far fa-square"></i> 
+            <input type="hidden" name="user" value="{{ user.id }}" />
             <input type="hidden" name="card" value="{{ card.id }}" />             
             <input type="submit" name="status" value="NOK"/>     
         </form>
 
     </div>
+    {% endif%}
 
     {% endfor%}
 

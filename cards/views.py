@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404 
 from django.views.generic import ListView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import CardForm, PackageForm, Card, Package
+from .models import CardForm, PackageForm, Card, Package, Learning_statistics
 from django.http import HttpResponse #testCookies
+from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 import datetime
 # Create your views here.
@@ -111,32 +112,18 @@ def learning_stat(request):
     if request.method == "POST":
         # form = CardForm(request.POST)
         # if form.is_valid():
-        now = datetime.datetime.now()
-        print(now)
-        form = Form(request.POST)
-        answer_data = form.cleaned_data["card"]
-        answer_status = form.cleaned_data["status"]
-        print(answer_date, answer_status, now)
-    return HttpResponse("réponse enregistrée!")
-
-    # if request.method == 'POST':
-    #     if request.session.test_cookie_worked():
-    #         request.session.delete_test_cookie()
-    #         return HttpResponse("You're logged in.")
-    #     else:
-    #         return HttpResponse("Please enable cookies and try again.")
-    # request.session.set_test_cookie()
-    # return render(request, 'foo/login_form.html')
-
-
-
-
-# def login(request):
-#     """Function to display the login page"""
+        form = request.POST
+        print(form)
+        if request.user.is_authenticated:
+            user = form.get('user')
+            user_id = User.objects.get(id=user)
+            card_id = form.get("card")
+            card_id = Card.objects.get(id=card_id)
+            answer_status = form.get("status")
+            date_and_time = datetime.datetime.now() 
+            Learning_statistics.objects.create(card=card_id, user=user_id, difficulty=answer_status, date_time=date_and_time)
+            print(user_id, card_id, answer_status, date_and_time)
+    #Going back to previous url
+    return redirect(request.META['HTTP_REFERER'])
     
-#     return render(request, 'cards/login.html', context)
-
-
-# def logout_view(request):
-#     logout(request)
-#     return render(request, 'cards/index.html') 
+    #return HttpResponse("réponse enregistrée!")
