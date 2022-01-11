@@ -127,3 +127,15 @@ def learning_stat(request):
     return redirect(request.META['HTTP_REFERER'])
     
     #return HttpResponse("réponse enregistrée!")
+
+def history(request, user):
+    if request.user.is_authenticated:
+        user_id = User.objects.get(id=user)
+        history = Learning_statistics.objects.filter(user=user_id)
+        print(history)
+        context = {
+            'cards': history,
+        }
+        return render(request, 'cards/history.html', context)
+    else:
+        return redirect('accounts:login')

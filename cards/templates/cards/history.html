@@ -1,0 +1,23 @@
+{% extends 'cards/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+	<h1>Historique de révision</h1>
+
+	<div>
+        {% for card in cards %}
+            <div>
+                <p>{{ card.card.question }}</p>
+                <p>{{ card.card.answer }}</p>
+                <p>{{ card.difficulty }}</p>
+                <p>{{ card.date_time }}</p>
+           
+            </div>
+          {% if forloop.counter|divisibleby:3 %}<div class="clearfix"></div>{% endif %}
+        {% endfor %}
+
+
+    </div>
+{% endblock %}

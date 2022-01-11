@@ -20,8 +20,8 @@ class Card(models.Model):
     package = models.ForeignKey(Package, on_delete=models.CASCADE, null=True)
     tag = models.CharField(max_length=200)
 
-    def __str__(self):
-        return self.question
+    def __int__(self):
+        return self.id
 
 
 class Learning_statistics(models.Model):

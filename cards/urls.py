@@ -9,4 +9,5 @@ urlpatterns = [
     path('create/', views.create, name='create'),
     path('learn/<str:package>', views.learn, name='learn'),
     path('learning_stat/', views.learning_stat, name='learning_stat'),
+    path('history/<int:user>', views.history, name='history'),
     ]

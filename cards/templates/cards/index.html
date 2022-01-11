@@ -15,11 +15,14 @@
 	{% if user.is_authenticated %}
 
 	  <a href="{% url 'accounts:logout' %}">Déconnexion</a>
+
+
+		<h2><a href="{% url 'cards:create' %}">Création</a></h2>
+
+		<h2><a href="{% url 'cards:history' user=user.id %}">Historique de révision</a></h2>
+
 	{% endif %}
-
-<h2><a href="{% url 'cards:create' %}">Création</a></h2>
-
-
+  
   <div>
 		{% for package in packages %}
 		    <div>
