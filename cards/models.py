@@ -37,11 +37,11 @@ class Learning_statistics(models.Model):
 class CardForm(ModelForm):
     class Meta:
         model = Card
-        #Package field is useless because it was choosen in the previous step
         fields = ['package', 'question', 'answer', 'tag']
 
-    
+"""    
 class PackageForm(ModelForm):
     class Meta:
         model = Package
         fields = ['name']
+"""

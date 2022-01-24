@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404 
 from django.views.generic import ListView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import CardForm, PackageForm, Card, Package, Learning_statistics
+from .models import CardForm, Card, Package, Learning_statistics
 from django.http import HttpResponse #testCookies
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -81,7 +81,7 @@ def learn(request, package):
     """Display and learn a flashcard"""
     
     if request.method == "GET":
-        id_package = Package.objects.get(name=package)
+        id_package = Package.objects.get_object_or_404(name=package)
         get_cards = Card.objects.filter(package=id_package.id)
 
         #Display cards with pagination
@@ -132,7 +132,6 @@ def history(request, user):
     if request.user.is_authenticated:
         user_id = User.objects.get(id=user)
         history = Learning_statistics.objects.filter(user=user_id)
-        print(history)
         context = {
             'cards': history,
         }
