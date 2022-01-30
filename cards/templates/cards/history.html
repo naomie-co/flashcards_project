@@ -6,18 +6,24 @@
 
 	<h1>Historique de révision</h1>
 
-	<div>
+	<table>
+        <tr>
+            <th>Question</th>
+            <th>Réponse</th>
+            <th>Autoévaluation</th>
+            <th>Date et heure</th>
+        </tr>
+
         {% for card in cards %}
-            <div>
-                <p>{{ card.card.question }}</p>
-                <p>{{ card.card.answer }}</p>
-                <p>{{ card.difficulty }}</p>
-                <p>{{ card.date_time }}</p>
-           
-            </div>
-          {% if forloop.counter|divisibleby:3 %}<div class="clearfix"></div>{% endif %}
+        <tr>
+            <td>{{ card.card.question }}</td>
+            <td>{{ card.card.answer }}</td>
+            <td>{{ card.difficulty }}</td>
+            <td>{{ card.date_time }}</td> 
+        </tr>
         {% endfor %}
+        
+    </table>
 
 
-    </div>
 {% endblock %}

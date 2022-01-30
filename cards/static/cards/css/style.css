@@ -8,6 +8,22 @@
 
 }
 
+
+h1 {
+	color: red;
+}
+
 #answer {
 	opacity: 0;
+}
+
+
+table 
+{
+    border-collapse: collapse;
+}
+
+
+table tr:nth-child(even){
+  background-color:violet;
 }

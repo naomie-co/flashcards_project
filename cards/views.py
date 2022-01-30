@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404 
 from django.views.generic import ListView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import CardForm, Card, Package, Learning_statistics
+from .models import CardForm, Card, Package, Learning_statistics, Package
 from django.http import HttpResponse #testCookies
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -81,8 +81,8 @@ def learn(request, package):
     """Display and learn a flashcard"""
     
     if request.method == "GET":
-        id_package = Package.objects.get_object_or_404(name=package)
-        get_cards = Card.objects.filter(package=id_package.id)
+        find_package = get_object_or_404(Package, name=package)
+        get_cards = Card.objects.filter(package=find_package.id)
 
         #Display cards with pagination
         paginator = Paginator(get_cards, 1)
@@ -116,12 +116,16 @@ def learning_stat(request):
         print(form)
         if request.user.is_authenticated:
             user = form.get('user')
-            user_id = User.objects.get(id=user)
+            user_id = get_object_or_404(User, id=user)
             card_id = form.get("card")
             card_id = Card.objects.get(id=card_id)
             answer_status = form.get("status")
             date_and_time = datetime.datetime.now() 
-            Learning_statistics.objects.create(card=card_id, user=user_id, difficulty=answer_status, date_time=date_and_time)
+            Learning_statistics.objects.create(
+                card=card_id, 
+                user=user_id, 
+                difficulty=answer_status, 
+                date_time=date_and_time.strftime("%c"))
             print(user_id, card_id, answer_status, date_and_time)
     #Going back to previous url
     return redirect(request.META['HTTP_REFERER'])
@@ -130,7 +134,7 @@ def learning_stat(request):
 
 def history(request, user):
     if request.user.is_authenticated:
-        user_id = User.objects.get(id=user)
+        user_id = user_id = get_object_or_404(User, id=user)
         history = Learning_statistics.objects.filter(user=user_id)
         context = {
             'cards': history,
