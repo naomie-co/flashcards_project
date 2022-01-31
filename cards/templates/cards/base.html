@@ -39,14 +39,14 @@
 
 
           <li class="nav-item">
-            <a class="nav-link" name="user_i" href="{% url 'cards:create' %}">
+            <a class="nav-link" name="create" href="{% url 'cards:create' %}">
               <i class="fas fa-plus fa-2x"></i>
             </a>
           </li>
 
           {% if user.is_authenticated %}
             <li class="nav-item active">
-              <a class="nav-link" href="{% url 'cards:history' user=user.id %}">
+              <a class="nav-link" name="history" href="{% url 'cards:history' user=user.id %}">
                 <i class="fas fa-history fa-2x"></i>
               </a>
             </li>
@@ -59,7 +59,7 @@
           {% endif %}
           {% if user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'accounts:logout' %}">
+              <a class="nav-link" name="logout" href="{% url 'accounts:logout' %}">
                 <i class="fas fa-sign-out-alt fa-2x"></i>
               </a>
             </li>

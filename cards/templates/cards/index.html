@@ -9,7 +9,7 @@
   <div class="row">
 			{% for package in packages %}
 		    <div class="col-md-4 text-center my-4">
-		        <a href="{% url 'cards:learn' package=package.name %}">
+		        <a name="{{package.name}}" href="{% url 'cards:learn' package=package.name %}">
 		          <img class="img-responsive w-100" width="400" height="350" src="{% static 'cards/img/img_packages/'%}{{forloop.counter}}illustration.jpg" alt="{{ package.name }}">
 			        </a>
 
