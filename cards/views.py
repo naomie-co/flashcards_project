@@ -52,7 +52,7 @@ def create(request):
             answer_check = form.cleaned_data["answer"]
             package_name = form.cleaned_data["package"]
             tag_check = form.cleaned_data["tag"]
-            print(question_check)
+            #print(question_check)
             new_card = Card.objects.get_or_create(
                 question=question_check,
                 answer=answer_check,
@@ -79,23 +79,25 @@ def create(request):
 
 def learn(request, package):
     """Display and learn a flashcard"""
-    
-    if request.method == "GET":
-        find_package = get_object_or_404(Package, name=package)
-        get_cards = Card.objects.filter(package=find_package.id)
+    if request.user.is_authenticated:
+        if request.method == "GET":
+            find_package = get_object_or_404(Package, name=package)
+            get_cards = Card.objects.filter(package=find_package.id)
 
-        #Display cards with pagination
-        paginator = Paginator(get_cards, 1)
-        page_number = request.GET.get('page')
-        page_obj = paginator.get_page(page_number)
-        try:
-            cards = paginator.page(page_number)
-        except PageNotAnInteger:
-            cards = paginator.page(1)
-        except EmptyPage:
-            cards = paginator.page(paginator.num_pages)
-
+            #Display cards with pagination
+            paginator = Paginator(get_cards, 1)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            try:
+                cards = paginator.page(page_number)
+            except PageNotAnInteger:
+                cards = paginator.page(1)
+            except EmptyPage:
+                cards = paginator.page(paginator.num_pages)
         return render(request, 'cards/learn.html', {'page_obj': page_obj, 'cards': cards})
+    else:
+        return redirect('accounts:login')
+
 
     # else: 
     #     if request.method == "POST":
@@ -113,7 +115,7 @@ def learning_stat(request):
         # form = CardForm(request.POST)
         # if form.is_valid():
         form = request.POST
-        print(form)
+        #print(form)
         if request.user.is_authenticated:
             user = form.get('user')
             user_id = get_object_or_404(User, id=user)
