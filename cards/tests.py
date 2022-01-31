@@ -250,7 +250,7 @@ class LearningTest(StaticLiveServerTestCase):
         #self.driver.implicitly_wait(30)
         #self.driver.maximize_window()
         # navigate to the application home page
-        self.driver.get('%s' % (self.live_server_url))
+        #self.driver.get('%s' % (self.live_server_url))
 
 
 
