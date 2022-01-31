@@ -247,8 +247,8 @@ class LearningTest(StaticLiveServerTestCase):
         
         #local execution only
         #self.driver = webdriver.Firefox(executable_path=r'C:\\Program Files\\geckodriver\\geckodriver.exe')
-        self.driver.implicitly_wait(30)
-        self.driver.maximize_window()
+        #self.driver.implicitly_wait(30)
+        #self.driver.maximize_window()
         # navigate to the application home page
         self.driver.get('%s' % (self.live_server_url))
 
