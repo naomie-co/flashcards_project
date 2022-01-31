@@ -4,35 +4,23 @@
 
 {% block content %}
 
-{% if user.is_authenticated %}
-  Bonjour {{ user.username }}!
-{% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'accounts:login' %}">Log In</a>
-{% endif %}
 
 
-	{% if user.is_authenticated %}
+  <div class="row">
+			{% for package in packages %}
+		    <div class="col-md-4 text-center my-4">
+		        <a href="{% url 'cards:learn' package=package.name %}">
+		          <img class="img-responsive w-100" width="400" height="350" src="{% static 'cards/img/img_packages/'%}{{forloop.counter}}illustration.jpg" alt="{{ package.name }}">
+			        </a>
 
-	  <a href="{% url 'accounts:logout' %}">Déconnexion</a>
+			        <div class="alert alert-warning" role="alert">
+  							 <a href="{% url 'cards:learn' package=package.name %}" class="alert-link">{{ package.name }}</a>
+							</div>
+		       
 
-
-		<h2><a href="{% url 'cards:create' %}">Création</a></h2>
-
-		<h2><a href="{% url 'cards:history' user=user.id %}">Historique de révision</a></h2>
-
-	{% endif %}
-  
-  <div>
-		{% for package in packages %}
-		    <div>
-		        <h3><a href="{% url 'cards:learn' package=package.name %}">{{ package.name }}</a></h3>
-		   
 		    </div>
 		  {% if forloop.counter|divisibleby:3 %}<div class="clearfix"></div>{% endif %}
 		{% endfor %}
-  </div>
 
 {% endblock %}
-
 

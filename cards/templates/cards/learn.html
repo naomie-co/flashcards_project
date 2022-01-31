@@ -3,27 +3,31 @@
 {% load static %}
 
 {% block content %}
-    <div id="question">
+    <div  class="row offset-md-4 col-md-4 justify-content-center" id="question">
 	   <h1>Testez-vous</h1>
 
         {% for card in cards %}
         <p>{{card.question}}</p>
-
-        <button onclick="DisplayAnswer()">Afficher la réponse</button>
+    </div>    
+     <div class="row offset-md-4 col-md-4 justify-content-center">
+        <button class="btn btn-secondary" onclick="DisplayAnswer()">Afficher la réponse</button>
 
 
     </div>
     
     {% if user.is_authenticated %}
     <div id="answer">
+    <div class="row offset-md-4 col-md-4 justify-content-center" >
         <p>{{card.answer}}</p>
+    </div>
 
+    <div class="row offset-md-4 col-md-4 justify-content-center">
        <form method="post" action="{% url 'cards:learning_stat' %}">
             {% csrf_token %}
             <i class="far fa-square"></i> 
             <input type="hidden" name="user" value="{{ user.id }}"/>
             <input type="hidden" name="card" value="{{ card.id }}" />             
-            <input type="submit" name="status" value="OK"/>  
+            <input class="btn btn-outline-primary" type="submit" name="status" value="OK"/>  
 
         </form>
 
@@ -33,7 +37,7 @@
             <i class="far fa-square"></i> 
             <input type="hidden" name="user" value="{{ user.id }}"/>
             <input type="hidden" name="card" value="{{ card.id }}"/>             
-            <input type="submit" name="status" value="MEH"/>     
+            <input  class="btn btn-outline-primary" type="submit" name="status" value="MEH"/>     
         </form>
 
         </form>
@@ -42,8 +46,10 @@
             <i class="far fa-square"></i> 
             <input type="hidden" name="user" value="{{ user.id }}" />
             <input type="hidden" name="card" value="{{ card.id }}" />             
-            <input type="submit" name="status" value="NOK"/>     
+            <input class="btn btn-outline-primary" type="submit" name="status" value="NOK"/>     
         </form>
+
+    </div>
 
     </div>
     {% endif%}
@@ -51,7 +57,7 @@
     {% endfor%}
 
 
-    <div class="pagination">
+    <div class="pagination row offset-md-4 col-md-4 justify-content-center">
         <span class="step-links">
             {% if page_obj.has_previous %}
                 <a href="?page=1">&laquo; first</a>

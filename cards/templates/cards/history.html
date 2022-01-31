@@ -4,13 +4,13 @@
 
 {% block content %}
 
-	<h1>Historique de révision</h1>
-
-	<table>
+	<h1 class="row offset-md-4 col-md-4 justify-content-center">Historique de révision</h1>
+    <div class="table-responsive">
+	<table class="table table-hover">
         <tr>
             <th>Question</th>
             <th>Réponse</th>
-            <th>Autoévaluation</th>
+            <th>Evaluation</th>
             <th>Date et heure</th>
         </tr>
 
@@ -24,6 +24,7 @@
         {% endfor %}
         
     </table>
+    </div>
 
 
 {% endblock %}
