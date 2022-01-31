@@ -278,6 +278,6 @@ class LearningTest(StaticLiveServerTestCase):
         self.assertEqual(self.driver.find_element_by_tag_name('h1').text, "Testez-vous")
         self.assertEqual(self.driver.current_url, self.live_server_url + reverse("cards:learn", kwargs={'package':self.get_package_1.name}))
 
-    def tearDown(self):
-        # close the browser window
-        self.driver.quit()
+    # def tearDown(self):
+    #     # close the browser window
+    #     self.driver.quit()
