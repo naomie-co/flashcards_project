@@ -46,7 +46,7 @@ else:
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['flashcards-project.herokuapp.com']
+ALLOWED_HOSTS = ['flashcards-project22.herokuapp.com']
 
 
 # Application definition
