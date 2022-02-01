@@ -105,6 +105,7 @@ DATABASES = {
 }
 
 
+
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
@@ -143,10 +144,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/cards/'
 
-SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 
-
-SESSION_COOKIE_HTTPONLY = True
 
 #Connexion configuration
 LOGIN_REDIRECT_URL = 'index'
