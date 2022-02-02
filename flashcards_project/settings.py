@@ -16,7 +16,7 @@ import dj_database_url
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 # Quick-start development settings - unsuitable for production
@@ -27,12 +27,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 #SECURITY WARNING: don't run with debug turned on in production!
 
-# if os.environ.get('ENV') == 'PRODUCTION':
-#     # SECURITY WARNING: keep the secret key used in production secret!
-#     DEBUG = False
-#     SECRET_KEY = os.environ.get('S_KEY') 
+if os.environ.get('ENV') == 'PRODUCTION':
+    # SECURITY WARNING: keep the secret key used in production secret!
+    DEBUG = False
+    SECRET_KEY = os.environ.get('S_KEY') 
 
-    
+    # SECURITY WARNING: keep the secret key used in production secret!
+    DEBUG = False
+    SECRET_KEY = os.environ.get('S_KEY')
+
 # else: 
 
 #     from CONST import S_KEY
@@ -41,9 +44,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 #     SECRET_KEY = S_KEY
 #     DEBUG = True
 
-# SECURITY WARNING: keep the secret key used in production secret!
-DEBUG = False
-SECRET_KEY = os.environ.get('S_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -158,7 +158,7 @@ LOGOUT_REDIRECT_URL = 'index'
 #if os.environ.get('ENV') == 'PRODUCTION':
 
 # Static files settings
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 
