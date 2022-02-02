@@ -27,19 +27,23 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 #SECURITY WARNING: don't run with debug turned on in production!
 
-if os.environ.get('ENV') == 'PRODUCTION':
-    # SECURITY WARNING: keep the secret key used in production secret!
-    DEBUG = False
-    SECRET_KEY = os.environ.get('S_KEY') 
+# if os.environ.get('ENV') == 'PRODUCTION':
+#     # SECURITY WARNING: keep the secret key used in production secret!
+#     DEBUG = False
+#     SECRET_KEY = os.environ.get('S_KEY') 
 
-else: 
+    
+# else: 
 
-    from CONST import S_KEY
-    # SECURITY WARNING: keep the secret key used in production secret!
+#     from CONST import S_KEY
+#     # SECURITY WARNING: keep the secret key used in production secret!
 
-    SECRET_KEY = S_KEY
-    DEBUG = True
+#     SECRET_KEY = S_KEY
+#     DEBUG = True
 
+# SECURITY WARNING: keep the secret key used in production secret!
+DEBUG = False
+SECRET_KEY = os.environ.get('S_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
