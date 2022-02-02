@@ -52,7 +52,7 @@ def create(request):
             package_name = form.cleaned_data["package"]
             tag_check = form.cleaned_data["tag"]
             #print(question_check)
-            Card.objects.get_or_create(
+            new_card = Card.objects.get_or_create(
                 question=question_check,
                 answer=answer_check,
                 package=package_name, 
