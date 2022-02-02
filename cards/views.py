@@ -1,12 +1,11 @@
+import datetime
 from django.shortcuts import render, redirect, get_object_or_404 
 from django.views.generic import ListView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import CardForm, Card, Package, Learning_statistics, Package
-from django.http import HttpResponse #testCookies
-from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-import datetime
-# Create your views here.
+from django.contrib.auth.models import User
+from .models import CardForm, Card, Package, Learning_statistics, Package
+
 
 
 def index(request):
@@ -53,25 +52,20 @@ def create(request):
             package_name = form.cleaned_data["package"]
             tag_check = form.cleaned_data["tag"]
             #print(question_check)
-            new_card = Card.objects.get_or_create(
+            Card.objects.get_or_create(
                 question=question_check,
                 answer=answer_check,
                 package=package_name, 
                 tag=tag_check)
         form = CardForm()
-        #return redirect('create', package=package_name)
-
 
     else:
         form = CardForm()
-        #print("Dans Create/get")
 
     context = {
         'form': form,
-#            'package': package_name,
         }
     return render(request, 'cards/create.html', context)
-        #return redirect('create', package=package_name)
 
 
 
@@ -99,23 +93,11 @@ def learn(request, package):
         return redirect('accounts:login')
 
 
-    # else: 
-    #     if request.method == "POST":
-    #         form = CardForm(request.POST)
-    #         if form.is_valid():
-    #             answer_data = form.cleaned_data["card"]
-    #             answer_status = form.cleaned_data["status"]
-        
-
-
 
 def learning_stat(request):
 
     if request.method == "POST":
-        # form = CardForm(request.POST)
-        # if form.is_valid():
         form = request.POST
-        #print(form)
         if request.user.is_authenticated:
             user = form.get('user')
             user_id = get_object_or_404(User, id=user)
@@ -131,8 +113,7 @@ def learning_stat(request):
             print(user_id, card_id, answer_status, date_and_time)
     #Going back to previous url
     return redirect(request.META['HTTP_REFERER'])
-    
-    #return HttpResponse("réponse enregistrée!")
+
 
 def history(request, user):
     if request.user.is_authenticated:

@@ -2,11 +2,10 @@ from django.db import models
 from django.forms import ModelForm
 from django.contrib.auth.models import User
 
-# Create your models here.
 
 class Package(models.Model):
     name = models.CharField(max_length=200)
-    #url = models.URLField(null=True)#add null to try to save the V1 project
+    #url = models.URLField(null=True)
     
     def __str__(self):
         return self.name

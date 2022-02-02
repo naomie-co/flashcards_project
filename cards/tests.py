@@ -1,3 +1,4 @@
+"""Tests views and the database models"""
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -6,7 +7,6 @@ from django.http import HttpResponse
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
-"""Tests views and the database models"""
 
 class IndexPageTestCase(TestCase):
     """test that index page returns a status code 200"""
@@ -14,8 +14,6 @@ class IndexPageTestCase(TestCase):
         """index page status code"""
         response = self.client.get(reverse('index'))
         self.assertEqual(response.status_code, 200)
-
-
 
 
 class CardsTestCase(TestCase):
@@ -58,22 +56,22 @@ class CardsTestCase(TestCase):
             package=self.get_package_1,
             tag="geo") 
 
-        self.user = User.objects.create(username="test_1", password="secret_password", is_active=1)
+        self.user = User.objects.create(
+            username="test_1", 
+            password="secret_password", 
+            is_active=1)
         self.user.save()
 
-
     def test_create_status_200(self):
-        """create page status code"""
+        """Test create page status code"""
         response = self.client.get(reverse('cards:create'))
         self.assertEqual(response.status_code, 200)
-
-
-
 
     def test_learn_status_404(self):
         """Learn page status code 404 if user is doesn't exist"""
         self.client.force_login(user=self.user)
-        response = self.client.get(reverse('cards:learn', kwargs={'package':self.get_package_1.name + "add a name"}))
+        response = self.client.get(reverse('cards:learn', kwargs={
+            'package':self.get_package_1.name + "add a name"}))
         self.assertEqual(response.status_code, 404)
 
     # def test_learning_stat_status_200(self):
@@ -84,19 +82,21 @@ class CardsTestCase(TestCase):
     def test_history_status_200(self):
         """History page status code if user is connected"""
         self.client.force_login(user=self.user)
-        response = self.client.get(reverse('cards:history', kwargs={'user':self.user.id}))
+        response = self.client.get(reverse('cards:history', kwargs={
+            'user':self.user.id}))
         self.assertEqual(response.status_code, 200)
-
 
     def test_history_status_404(self):
         """History page status code 404 if the user doesn't exist"""
         self.client.force_login(user=self.user)
-        response = self.client.get(reverse('cards:history', kwargs={'user':self.user.id + 345}))
+        response = self.client.get(reverse('cards:history', kwargs={
+            'user':self.user.id + 345}))
         self.assertEqual(response.status_code, 404)
 
     def test_history_302(self):
         """History page status code 302 if the user is not loged"""
-        response = self.client.get(reverse('cards:history', kwargs={'user':self.user.id}))
+        response = self.client.get(reverse('cards:history', kwargs={
+            'user':self.user.id}))
         self.assertEqual(response.status_code, 302)
 
 class DatabaseTestCase(TestCase):
@@ -138,16 +138,21 @@ class DatabaseTestCase(TestCase):
             package=self.get_package_1,
             tag="geo") 
 
-        self.user = User.objects.create(username="test_1", password="secret_password", is_active=1)
+        self.user = User.objects.create(
+            username="test_1", 
+            password="secret_password", 
+            is_active=1)
         self.user.save()
         
     def test_package_creation(self):
+        """Check if a new package is added to the model"""
         package_number = Package.objects.count()
         Package.objects.create(name="Cinéma")
         assert Package.objects.count() == package_number + 1
 
 
     def test_package_delete(self):
+        """Check if a new package is deleted to the model"""
         package_number = Package.objects.count()
         package_selected = Package.objects.get(name="Histoire")
         package_selected.delete()
@@ -196,7 +201,7 @@ class DatabaseTestCase(TestCase):
 
 
 class LearningTest(StaticLiveServerTestCase):
-    """"""
+    """Functional test of the user experience"""
 
     def setUp(self):
         """Setup cards in the database (users, packages and cards)"""
@@ -235,12 +240,13 @@ class LearningTest(StaticLiveServerTestCase):
             package=self.get_package_1,
             tag="geo") 
 
-        self.user = User.objects.create(username="test_1", password="secret_password", is_active=1)
+        self.user = User.objects.create(
+            username="test_1", 
+            password="secret_password", 
+            is_active=1)
         self.user.save()
       
        # create a new Firefox session
-
-
         self.driver = webdriver.FirefoxOptions()
         self.driver.headless = True
         webdriver.Firefox(options=self.driver)
@@ -252,9 +258,8 @@ class LearningTest(StaticLiveServerTestCase):
         #navigate to the application home page
         self.driver.get('%s' % (self.live_server_url))
 
-
-
-    def test_singup(self):
+    def test_signup(self):
+        """Test the signup, connxeion and access to learning view"""
 
         timeout = 10
         # get the search textbox required to login
@@ -270,13 +275,17 @@ class LearningTest(StaticLiveServerTestCase):
         self.driver.find_element_by_name('password').send_keys("secret_password")
         self.driver.find_element_by_name("log_in").submit()
         self.driver.find_element_by_name("Géo").click()
-#        self.driver.find_element_by_name("Géo").click()
+
 
         #get the list of elements which are displayed after the search
         #currently on result page usingfind_elements_by_name_namemethod
 
-        self.assertEqual(self.driver.find_element_by_tag_name('h1').text, "Testez-vous")
-        self.assertEqual(self.driver.current_url, self.live_server_url + reverse("cards:learn", kwargs={'package':self.get_package_1.name}))
+        self.assertEqual(
+            self.driver.find_element_by_tag_name('h1').text,"Testez-vous")
+        self.assertEqual(
+            self.driver.current_url, 
+            self.live_server_url + reverse("cards:learn", 
+                kwargs={'package':self.get_package_1.name}))
 
     def tearDown(self):
         # close the browser window
