@@ -67,7 +67,7 @@ Installez le driver correspondant au navigateur Firefox (https://github.com/mozi
 Remplacez le lien vers geckodriver dans le fichier de tests par le vôtre.
 
 ## Lien vers le site
-Si vous souhaitez tester le site flashcards_project, cliquez sur ce lien : [http://flashcards-project22.herokuapp.com/]
+Si vous souhaitez tester le site flashcards_project, cliquez sur ce lien : [http://flashcards-project13.herokuapp.com/]
 
 
 
