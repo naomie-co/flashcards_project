@@ -29,6 +29,10 @@ if os.environ.get('ENV') == 'PRODUCTION':
     # SECURITY WARNING: keep the secret key used in production secret!
     SECRET_KEY = os.environ.get('S_KEY') 
 
+elif os.environ.get('ENV') == 'TEST':
+    # SECURITY WARNING: keep the secret key used in production secret!
+    SECRET_KEY = os.environ.get('S_KEY') 
+
 else: 
 
     from CONST import S_KEY
