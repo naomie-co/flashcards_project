@@ -1,6 +1,6 @@
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
-#from django.conf.urls import 
+#from django.conf.urls import
 from . import views
 
 app_name = 'cards'
