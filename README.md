@@ -16,7 +16,7 @@ L’historique est accessible à partir de la barre de navigation et permet d’
 ## Pour installer le projet en local
 
 ### 1 – Création de l’environnement virtuel
-Cloner ce repo
+Cloner le repo de la branche new
 
 Ce programme est exécuté en Python et utilise le Framework Django.
 
